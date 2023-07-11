@@ -1,5 +1,24 @@
+import pytest
+from model_bakery import baker
+
+from server.models import Category
 
 
-def test_category_endpoint(client, db):
+@pytest.fixture
+def category(db):
+    return baker.make(Category)
+
+
+def test_server_endpoint(client, db):
     resp = client.get("/api/server/select/")
+    assert resp.status_code == 200
+
+
+def test_filtering_server_by_category(client, category):
+    resp = client.get(f"/api/server/select/?category={category.name}")
+    assert resp.status_code == 200
+
+
+def test_filtering_server_by_category_and_qty(client, category):
+    resp = client.get(f"/api/server/select/?category={category.name}&qty=1")
     assert resp.status_code == 200
