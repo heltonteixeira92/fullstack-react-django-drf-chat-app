@@ -11,3 +11,4 @@ tzdata==2023.3
 pytest==7.4.0
 pytest-django==4.5.2
 model-bakery==1.12.0
+Pillow==10.0.0
